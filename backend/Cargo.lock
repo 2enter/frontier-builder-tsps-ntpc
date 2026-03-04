@@ -2185,7 +2185,6 @@ dependencies = [
  "tracing",
  "typeshare",
  "utils",
- "uuid",
 ]
 
 [[package]]
@@ -3554,7 +3553,6 @@ dependencies = [
  "tokio-stream",
  "tracing",
  "url",
- "uuid",
 ]
 
 [[package]]
@@ -3636,7 +3634,6 @@ dependencies = [
  "stringprep",
  "thiserror 2.0.11",
  "tracing",
- "uuid",
  "whoami",
 ]
 
@@ -3675,7 +3672,6 @@ dependencies = [
  "stringprep",
  "thiserror 2.0.11",
  "tracing",
- "uuid",
  "whoami",
 ]
 
@@ -3701,7 +3697,6 @@ dependencies = [
  "sqlx-core",
  "tracing",
  "url",
- "uuid",
 ]
 
 [[package]]
@@ -4430,7 +4425,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ced87ca4be083373936a67f8de945faa23b6b42384bd5b64434850802c6dccd0"
 dependencies = [
  "getrandom 0.3.1",
- "serde",
 ]
 
 [[package]]

@@ -5,7 +5,6 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::{query_as, FromRow, PgPool, Postgres};
 use typeshare::typeshare;
-use uuid::Uuid;
 
 #[typeshare]
 #[derive(Debug, Serialize, Deserialize, FromRow)]
