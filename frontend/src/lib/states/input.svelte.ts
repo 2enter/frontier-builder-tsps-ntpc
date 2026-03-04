@@ -1,8 +1,10 @@
-import type { ParseEnum } from '@2enter/web-kit/types';
-import type { Cargo, CargoKind } from '@/types/model';
+import type {ParseEnum} from '@2enter/web-kit/types';
+import type {Cargo, CargoKind} from '@/types/model';
 
-import { getContext, setContext } from 'svelte';
+import {getContext, setContext} from 'svelte';
 import axios from 'axios';
+
+// import { getCargoes } from '@/api';
 
 class InputState {
     cargoKind = $state<ParseEnum<CargoKind>>();
@@ -53,11 +55,11 @@ class InputState {
 const INPUT_STATE_CTX = 'INPUT_STATE';
 
 function setInputState() {
-	return setContext(INPUT_STATE_CTX, new InputState());
+    return setContext(INPUT_STATE_CTX, new InputState());
 }
 
 function getInputState() {
-	return getContext<ReturnType<typeof setInputState>>(INPUT_STATE_CTX);
+    return getContext<ReturnType<typeof setInputState>>(INPUT_STATE_CTX);
 }
 
-export { setInputState, getInputState };
+export {setInputState, getInputState};
