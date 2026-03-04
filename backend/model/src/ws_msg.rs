@@ -1,4 +1,4 @@
-use crate::enums::CargoType;
+use crate::enums::CargoKind;
 use serde_json::json;
 
 pub struct WSMsg;
