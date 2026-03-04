@@ -43,6 +43,5 @@ RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
     && apt-get update \
     && apt-get install -y ca-certificates curl
 
-EXPOSE 3000
 RUN chmod +x ./bin/backend
 CMD ["./bin/backend"]
