@@ -2,7 +2,7 @@
 // for information about these interfaces
 
 import type { ParseEnum } from '@2enter/web-kit/types';
-import type { CargoType } from '@/types/model';
+import type { CargoKind } from '@/types/model';
 
 declare global {
 	namespace App {
@@ -18,7 +18,7 @@ declare global {
 		data?:
 			| {
 					type: 'cargo';
-					cargo_type: ParseEnum<CargoType>;
+					cargo_kind: ParseEnum<CargoKind>;
 					id: string;
 					directory: string;
 			  }

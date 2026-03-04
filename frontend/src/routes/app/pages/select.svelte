@@ -1,14 +1,14 @@
 <script lang="ts">
-    import {CargoType} from '@/types/model';
+    import {CargoKind} from '@/types/model';
 
     import {getInputState, getSysState} from '@/states';
     import {ImgBtn} from '@2enter/web-kit/components';
 
     const [inputState, sysState] = [getInputState(), getSysState()];
-    const CARGO_TYPES = Object.values(CargoType);
+    const CARGO_TYPES = Object.values(CargoKind);
 
-    function choose(type: CargoType) {
-        inputState.cargoKind = type;
+    function choose(kind: CargoKind) {
+        inputState.cargoKind = kind;
         sysState.navigate();
     }
 </script>
