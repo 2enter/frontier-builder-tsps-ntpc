@@ -1,6 +1,6 @@
 services:
   backend:
-    container_name: backend
+    container_name: "${APP_NAME}-backend"
     restart: always
     build:
       context: .
@@ -11,15 +11,15 @@ services:
     env_file:
       - .env
     ports:
-      - "${BACKEND_PORT}:${BACKEND_PORT}"
+      - "${BACKEND_PORT}"
     network_mode: host
     depends_on:
       - db
       - chromedriver
 
   db:
-    image: postgres:17
-    container_name: db
+    image: postgres:18
+    container_name: "${APP_NAME}-db"
     restart: unless-stopped
     env_file:
       - .env
@@ -27,11 +27,11 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql
 
   chromedriver:
     image: spryker/chromedriver
-    container_name: chromedriver
+    container_name: "${APP_NAME}-chromedriver"
     restart: always
     init: true
     ports:

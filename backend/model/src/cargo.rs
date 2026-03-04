@@ -1,20 +1,19 @@
-use crate::enums::{CargoStatus, CargoType};
+use crate::enums::{CargoKind, CargoStatus};
 use axum::body::Bytes;
 use axum_typed_multipart::TryFromMultipart;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sqlx::{query_as, FromRow, PgPool, Postgres};
 use typeshare::typeshare;
-use uuid::Uuid;
 
 #[typeshare]
 #[derive(Debug, Serialize, Deserialize, FromRow)]
 #[serde(rename_all = "camelCase")]
 pub struct Cargo {
-    pub id: Uuid,
+    pub id: i32,
     pub created_at: DateTime<Utc>,
     pub paint_time: i32,
-    pub r#type: CargoType,
+    pub kind: CargoKind,
     pub status: CargoStatus,
 }
 
@@ -23,7 +22,7 @@ pub struct Cargo {
 #[serde(rename_all = "camelCase")]
 pub struct CargoInput {
     pub paint_time: f32,
-    pub r#type: CargoType,
+    pub kind: CargoKind,
 }
 
 #[typeshare]
@@ -31,7 +30,7 @@ pub struct CargoInput {
 #[serde(rename_all = "camelCase")]
 #[try_from_multipart(rename_all = "camelCase")]
 pub struct CargoRequest {
-    pub cargo_type: CargoType,
+    pub cargo_kind: CargoKind,
     pub paint_time: f32,
     #[serde(skip)] // comment this line before generating typeshare types
     pub file: Bytes,
@@ -60,7 +59,10 @@ impl Cargo {
         sqlx::query_as(
             r#"UPDATE cargo SET status = 'delivered' WHERE status = 'shipping' and created_at < $1 RETURNING id;"#
         )
-            .bind(target_time).fetch_all(pool).await.unwrap_or_default()
+            .bind(target_time)
+            .fetch_all(pool)
+            .await
+            .unwrap_or_default()
     }
 
     pub async fn launch(pool: &PgPool) -> usize {
@@ -74,8 +76,8 @@ impl Cargo {
     }
 
     pub async fn create(pool: &PgPool, input: CargoInput) -> Self {
-        query_as("INSERT INTO cargo (type, paint_time) VALUES ($1, $2) RETURNING *;")
-            .bind(input.r#type)
+        query_as("INSERT INTO cargo (kind, paint_time) VALUES ($1, $2) RETURNING *;")
+            .bind(input.kind)
             .bind(input.paint_time)
             .fetch_one(pool)
             .await

@@ -22,7 +22,7 @@ pub async fn send_cargo(
 ) -> Json<ApiResponse<Cargo>> {
     let CargoRequest {
         paint_time,
-        cargo_type,
+        cargo_kind,
         file,
     } = data.data;
 
@@ -30,25 +30,25 @@ pub async fn send_cargo(
         &app_state.pool,
         CargoInput {
             paint_time,
-            r#type: cargo_type.clone(),
+            kind: cargo_kind.clone(),
         },
     )
     .await;
 
-    let id = &cargo.id.to_string();
+    let Cargo { id, .. } = cargo;
 
     let path = format!("{}/backend/db/storage", app_state.config.root_dir);
     generate_texture(id, &file, &path);
 
-    let Config { host, port, .. } = app_state.config;
+    let Config { host, port, .. } = &app_state.config;
 
     ws_broadcast(
         WSMsg::cargo(
-            cargo_type,
+            cargo_kind,
             id,
             &format!("https://{host}:{port}/api/storage/texture/{id}.jpg"),
         ),
-        &app_state.ws_sender.clone(),
+        &app_state.ws_sender,
     );
 
     ApiResponse::new_success(cargo).into()

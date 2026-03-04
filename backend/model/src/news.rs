@@ -4,14 +4,12 @@ use sqlx::{FromRow, PgPool};
 use std::error::Error;
 use thirtyfour::prelude::*;
 use utils::runtime::rand_sleep;
-use uuid::Uuid;
-
 const URL: &str =
     "https://news.google.com/search?q=%E5%A4%AA%E7%A9%BA&hl=zh-TW&gl=TW&ceid=TW%3Azh-Hant";
 
 #[derive(Debug, Serialize, FromRow, Deserialize)]
 pub struct News {
-    id: Uuid,
+    id: i32,
     created_at: DateTime<Utc>,
     updated_at: DateTime<Utc>,
     hype: i32,

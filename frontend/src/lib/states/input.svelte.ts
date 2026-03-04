@@ -1,22 +1,22 @@
 import type { ParseEnum } from '@2enter/web-kit/types';
-import type { Cargo, CargoType } from '@/types/model';
+import type { Cargo, CargoKind } from '@/types/model';
 
 import { getContext, setContext } from 'svelte';
 import axios from 'axios';
 
 class InputState {
-	cargoType = $state<ParseEnum<CargoType> | null>(null);
-	drawDuration = $state(0);
+	cargoKind = $state<ParseEnum<CargoKind> | null>(null);
+	paintTime = $state(0);
 
 	result = $state<Cargo | null>(null);
 	resultImgUrl = $state<string | null>(null);
 
-	readonly submittable = $derived(this.cargoType && this.drawDuration);
-	readonly requestMetadata = $derived({ type: this.cargoType, paintTime: this.drawDuration });
+	readonly submittable = $derived(this.cargoKind && this.paintTime);
+	readonly requestMetadata = $derived({ kind: this.cargoKind, paintTime: this.paintTime });
 
 	reset = () => {
-		this.cargoType = null;
-		this.drawDuration = 0;
+		this.cargoKind = null;
+		this.paintTime = 0;
 		this.result = null;
 		this.resultImgUrl = null;
 	};

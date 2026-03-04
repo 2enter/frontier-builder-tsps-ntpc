@@ -4,28 +4,27 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = { version = "0.8.1", features = ["multipart", "ws"] }
-axum_typed_multipart = "0.15.1"
+axum = { version = "0.8.1", features = ["multipart", "ws", "default"] }
+axum_typed_multipart = "0.16.5"
 futures = "0.3.31"
 openssl = { version = "0.10.71", features = ["vendored"] } # This is more docker environment
 project-root = "0.2.2"
-reqwest = { version = "0.12.12" }
-scraper = "0.22.0"
+reqwest = { version = "0.13.2" }
+scraper = "0.25.0"
 serde = "1.0.217"
 serde_json = "1.0.138"
-sqlx = { version = "0.8.3", features = ["uuid", "postgres", "runtime-tokio", "tls-native-tls", "chrono"] }
-sysinfo = "0.33.1"
-thirtyfour = { version = "0.35.0" }
+sqlx = { version = "0.8.3", features = ["postgres", "runtime-tokio", "tls-native-tls", "chrono"] }
+sysinfo = "0.38.3"
+thirtyfour = { version = "0.36.1" }
 tokio = { version = "1.43.0", features = ["full"] }
-tokio-cron-scheduler = { version = "0.13.0", features = ["english"] }
+tokio-cron-scheduler = { version = "0.15.1", features = ["english"] }
 tower-http = { version = "0.6.2", features = ["fs", "trace"] }
 tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
 utils = { path = "./utils" }
 model = { path = "./model" }
 rustls = { version = "0.23.31", features = ["ring"] }
-axum-extra = "0.10.1"
-axum-server = { version = "0.7.2", features = ["tls-rustls"] }
+axum-server = { version = "0.8.0", features = ["tls-rustls"] }
 
 [workspace]
 members = ["utils", "model", "."]

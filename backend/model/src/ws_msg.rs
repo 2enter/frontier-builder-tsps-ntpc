@@ -1,10 +1,10 @@
-use crate::enums::CargoType;
+use crate::enums::CargoKind;
 use serde_json::json;
 
 pub struct WSMsg;
 
 impl WSMsg {
-    pub fn cargo(cargo_type: CargoType, id: &str, directory: &str) -> String {
+    pub fn cargo(cargo_type: CargoKind, id: i32, directory: &str) -> String {
         let value = json!({
             "data": {
                 "type": "cargo",
@@ -58,16 +58,13 @@ mod tests {
 
     #[test]
     fn cargo_msg() {
-        let result = WSMsg::cargo(
-            CargoType::Water,
-            "de426c3d-67b4-47c4-8648-8339b0f69c8f",
-            "test",
-        );
+        let result = WSMsg::cargo(CargoKind::Drip, 1, "test");
         assert_eq!(
             serde_json::from_str::<Value>(&result).unwrap(),
             serde_json::from_str::<Value>(
-                r#"{"type":"cargo","cargo_type":"water","id":"de426c3d-67b4-47c4-8648-8339b0f69c8f","directory":"test"}"#
-            ).unwrap()
+                r#"{"type":"cargo","cargo_type":"water","id":1,"directory":"test"}"#
+            )
+            .unwrap()
         );
     }
 }
