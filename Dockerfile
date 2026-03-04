@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM rust:1.93-slim AS builder
+FROM rust:1.93.1-slim-trixie AS builder
 WORKDIR /app
 
 COPY ./backend .
@@ -26,7 +26,7 @@ COPY ./.env /
 RUN bun install && bun run build
 
 # Stage 2: Create a minimal runtime image
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 WORKDIR /app
 
 RUN mkdir /app/backend/db/storage/texture -p
