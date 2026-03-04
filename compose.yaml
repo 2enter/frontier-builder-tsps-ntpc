@@ -18,7 +18,7 @@ services:
       - chromedriver
 
   db:
-    image: postgres:17
+    image: postgres:18
     container_name: db
     restart: unless-stopped
     env_file:
