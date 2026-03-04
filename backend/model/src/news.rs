@@ -11,7 +11,7 @@ const URL: &str =
 
 #[derive(Debug, Serialize, FromRow, Deserialize)]
 pub struct News {
-    id: Uuid,
+    id: i32,
     created_at: DateTime<Utc>,
     updated_at: DateTime<Utc>,
     hype: i32,

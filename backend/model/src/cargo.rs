@@ -11,7 +11,7 @@ use uuid::Uuid;
 #[derive(Debug, Serialize, Deserialize, FromRow)]
 #[serde(rename_all = "camelCase")]
 pub struct Cargo {
-    pub id: Uuid,
+    pub id: i32,
     pub created_at: DateTime<Utc>,
     pub paint_time: i32,
     pub r#type: CargoType,

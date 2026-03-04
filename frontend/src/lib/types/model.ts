@@ -18,7 +18,7 @@ export enum CargoStatus {
 }
 
 export interface Cargo {
-	id: string;
+	id: number;
 	createdAt: Date;
 	paintTime: number;
 	type: CargoType;

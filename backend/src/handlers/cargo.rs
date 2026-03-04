@@ -35,7 +35,7 @@ pub async fn send_cargo(
     )
     .await;
 
-    let id = &cargo.id.to_string();
+    let Cargo { id, .. } = cargo;
 
     let path = format!("{}/backend/db/storage", app_state.config.root_dir);
     generate_texture(id, &file, &path);

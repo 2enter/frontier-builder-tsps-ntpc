@@ -3,7 +3,7 @@ use image::{GenericImageView, ImageBuffer, ImageFormat, Rgb};
 
 const BG_COLOR: Rgb<u8> = Rgb([255, 222, 193]);
 
-pub fn generate_texture(id: &str, bytes: &Bytes, path: &str) {
+pub fn generate_texture(id: i32, bytes: &Bytes, path: &str) {
     let mut img = image::load_from_memory(bytes).unwrap();
 
     img.save(format!("{path}/paint/{id}.png")).unwrap();
