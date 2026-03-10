@@ -1,6 +1,6 @@
 \restrict dbmate
 
--- Dumped from database version 18.2 (Debian 18.2-1.pgdg13+1)
+-- Dumped from database version 18.1 (Debian 18.1-1.pgdg13+2)
 -- Dumped by pg_dump version 18.3 (Homebrew)
 
 SET statement_timeout = 0;
@@ -23,7 +23,7 @@ CREATE TYPE public.cargo_kind AS ENUM (
     'butterfly',
     'leaf',
     'cloud',
-    'drip'
+    'drop'
 );
 
 
