@@ -11,7 +11,7 @@ pub enum CargoKind {
     Butterfly,
     Leaf,
     Cloud,
-    Drip,
+    Drop,
 }
 
 #[typeshare]

@@ -1,6 +1,6 @@
 -- migrate:up
 CREATE TYPE cargo_status AS ENUM ('shipping', 'delivered', 'launched');
-CREATE TYPE cargo_kind AS ENUM ('butterfly', 'leaf', 'cloud', 'drip');
+CREATE TYPE cargo_kind AS ENUM ('butterfly', 'leaf', 'cloud', 'drop');
 
 CREATE TABLE IF NOT EXISTS cargo
 (

@@ -6,7 +6,7 @@ export enum CargoKind {
 	Butterfly = "butterfly",
 	Leaf = "leaf",
 	Cloud = "cloud",
-	Drip = "drip",
+	Drop = "drop",
 }
 
 export enum CargoStatus {

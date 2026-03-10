@@ -58,7 +58,7 @@ mod tests {
 
     #[test]
     fn cargo_msg() {
-        let result = WSMsg::cargo(CargoKind::Drip, 1, "test");
+        let result = WSMsg::cargo(CargoKind::Drop, 1, "test");
         assert_eq!(
             serde_json::from_str::<Value>(&result).unwrap(),
             serde_json::from_str::<Value>(
