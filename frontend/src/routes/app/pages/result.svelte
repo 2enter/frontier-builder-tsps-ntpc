@@ -6,16 +6,20 @@
 	import { onDestroy, onMount } from 'svelte';
 
 	import { ImgBtn } from '@2enter/web-kit/components';
+	import type { MeshToonMaterialParameters } from 'three';
 
 	const [inputState, sysState] = [getInputState(), getSysState()];
+
+	const FRAME_RATE = 30;
+	console.log(inputState.result);
 
 	const loader = new GLTFLoader();
 	const textureLoader = new THREE.TextureLoader();
 	const scene = new THREE.Scene();
 
 	let threeDom = $state<HTMLDivElement>();
+	let cargoModel: THREE.Object3D;
 	let frame = 0;
-	const FRAME_RATE = 30;
 
 	onMount(async () => {
 		if (!inputState.result) {
@@ -23,12 +27,14 @@
 			return;
 		}
 
-		const { type, id } = $state.snapshot(inputState.result);
+		const { kind, id } = $state.snapshot(inputState.result);
 
 		inputState.reset();
 
-		const model = await loader.loadAsync(`/cargoes/${type}.glb`);
+		cargoModel = await loader.loadAsync(`/cargoes/${kind}.glb`).then(({ scene }) => scene);
+		console.log(cargoModel);
 		const texture = await textureLoader.loadAsync(`/api/storage/texture/${id}.jpg`);
+		const alphaTexture = await textureLoader.loadAsync(`/cargoes/butterfly_alpha.webp`);
 
 		const camera = new THREE.PerspectiveCamera(
 			75,
@@ -45,24 +51,57 @@
 
 		if (threeDom) threeDom.appendChild(renderer.domElement);
 		texture.flipY = false;
-		const material = new THREE.MeshToonMaterial({ map: texture });
-		const cargo = model.scene.children[0];
+		alphaTexture.flipY = false;
+		// alphaTexture.magFilter = THREE.NearestFilter;
+		const material = new THREE.MeshToonMaterial(
+			kind === 'butterfly'
+				? ({
+						transparent: true,
+						map: texture,
+						alphaMap: alphaTexture,
+						alphaTest: 0.5
+					} satisfies MeshToonMaterialParameters)
+				: { map: texture }
+		);
+
+		const cargo = cargoModel.children[0];
+		cargo.renderOrder = 1;
 		if ('material' in cargo) {
 			cargo.material = material;
 		}
-		scene.add(cargo);
 
-		camera.position.z = 3.6;
-		camera.position.y = 1.5;
-		camera.lookAt(0, 0, 0);
+		if (kind === 'leaf') {
+			cargo.rotation.y += Math.PI / 4;
+			cargo.rotation.x += Math.PI / 2;
+			camera.position.y = 6.5;
+			camera.position.z = 3.6;
+			camera.lookAt(-1.5, 0, 0);
+		} else if (kind === 'butterfly') {
+			cargo.rotation.y += Math.PI / 2;
+			camera.position.y = 4.2;
+			// camera.position.z = 3.6;
+			camera.lookAt(0, 0, 0);
+		} else {
+			camera.position.y = 1.5;
+			camera.position.z = 3.6;
+			camera.lookAt(0, 0, 0);
+		}
+
+		scene.add(cargo);
 
 		function animate() {
 			setTimeout(() => {
 				frame = requestAnimationFrame(animate);
 				renderer.render(scene, camera);
-				cargo.rotation.y += 1 / FRAME_RATE;
+				if (kind === 'leaf') {
+					cargo.rotation.z += 1 / FRAME_RATE;
+				} else {
+					cargo.rotation.y += 1 / FRAME_RATE;
+				}
+				// cargo.rotation.x += 0.2 / FRAME_RATE;
 			}, 1000 / FRAME_RATE);
 		}
+
 		animate();
 	});
 
