@@ -4,11 +4,11 @@ use serde_json::json;
 pub struct WSMsg;
 
 impl WSMsg {
-    pub fn cargo(cargo_type: CargoKind, id: i32, directory: &str) -> String {
+    pub fn cargo(cargo_kind: CargoKind, id: i32, directory: &str) -> String {
         let value = json!({
             "data": {
-                "type": "cargo",
-                "cargo_type": cargo_type,
+                "kind": "cargo",
+                "cargo_kind": cargo_kind,
                 "id": id,
                 "directory": directory,
             }
@@ -20,7 +20,7 @@ impl WSMsg {
     pub fn launch(cargo_amount: usize) -> String {
         let value = json!({
             "data": {
-                "type": "launch",
+                "kind": "launch",
                 "cargo_amount": cargo_amount,
             }
         });
@@ -31,7 +31,7 @@ impl WSMsg {
     pub fn weather(is_raining: bool) -> String {
         let value = json!({
             "data": {
-                "type": "weather",
+                "kind": "weather",
                 "raining": is_raining,
             }
         });
@@ -42,7 +42,7 @@ impl WSMsg {
     pub fn population(amount: u32) -> String {
         let value = json!({
             "data": {
-                "type": "population",
+                "kind": "population",
                 "amount": amount,
             }
         });
