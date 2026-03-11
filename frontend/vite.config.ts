@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '../.env' });
 
-const { BACKEND_PORT, BACKEND_HOST } = process.env;
-const API_BASE_URL = `http://${BACKEND_HOST ?? 'localhost'}:${BACKEND_PORT ?? 3000}`;
+const { BACKEND_PORT } = process.env;
+const API_BASE_URL = `https://localhost:${BACKEND_PORT ?? 3000}`;
 
 export default defineConfig({
 	plugins: [sveltekit()],
@@ -13,7 +13,8 @@ export default defineConfig({
 		proxy: {
 			'/api': {
 				target: API_BASE_URL,
-				changeOrigin: true
+				changeOrigin: true,
+				secure: false
 			}
 		},
 		port: 5173
