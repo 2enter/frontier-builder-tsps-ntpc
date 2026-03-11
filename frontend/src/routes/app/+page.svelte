@@ -1,117 +1,117 @@
 <script lang="ts">
-    import {onMount} from 'svelte';
-    import {fade} from 'svelte/transition';
-    import {navigating} from '$app/state';
-    import {dev} from '$app/environment';
-    import {setSysState, setInputState} from '@/states';
-    import {getLaunchCountDown} from '@/time';
-    import {Pages} from './pages';
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
+	import { navigating } from '$app/state';
+	import { dev } from '$app/environment';
+	import { setSysState, setInputState } from '@/states';
+	import { getLaunchCountDown } from '@/time';
+	import { Pages } from './pages';
 
-    const sysState = setSysState();
-    const inputState = setInputState();
+	const sysState = setSysState();
+	const inputState = setInputState();
 
-    const Page = $derived(Pages[sysState.pageNum]);
+	const Page = $derived(Pages[sysState.pageNum]);
 
-    if (!inputState.cargoKind) {
-        inputState.goToConfig();
-    }
+	if (!inputState.cargoKind) {
+		inputState.goToConfig();
+	}
 
-    let launchCountDown = $state({
-        min: 0,
-        sec: 0
-    });
+	let launchCountDown = $state({
+		min: 0,
+		sec: 0
+	});
 
-    onMount(async () => {
-        if (dev) {
-            const eruda = (await import('eruda')).default;
-            eruda.init();
-        }
+	onMount(async () => {
+		if (dev) {
+			const eruda = (await import('eruda')).default;
+			eruda.init();
+		}
 
-        const interval = setInterval(() => {
-            launchCountDown = getLaunchCountDown();
-        }, 1234);
+		const interval = setInterval(() => {
+			launchCountDown = getLaunchCountDown();
+		}, 1234);
 
-        setInterval(() => {
-            detectSWUpdate();
-        }, 20000);
+		setInterval(() => {
+			detectSWUpdate();
+		}, 20000);
 
-        return {
-            destroy() {
-                clearInterval(interval);
-            }
-        };
-    });
+		return {
+			destroy() {
+				clearInterval(interval);
+			}
+		};
+	});
 
-    async function detectSWUpdate() {
-        const registration = await navigator.serviceWorker.ready;
+	async function detectSWUpdate() {
+		const registration = await navigator.serviceWorker.ready;
 
-        registration.addEventListener('updatefound', () => {
-            const newSW = registration.installing;
+		registration.addEventListener('updatefound', () => {
+			const newSW = registration.installing;
 
-            newSW?.addEventListener('statechange', () => {
-                if (newSW.state === 'installed') {
-                    if (confirm('New update available! Reload to update?')) {
-                        newSW.postMessage({type: 'SKIP_WAITING'});
+			newSW?.addEventListener('statechange', () => {
+				if (newSW.state === 'installed') {
+					if (confirm('New update available! Reload to update?')) {
+						newSW.postMessage({ type: 'SKIP_WAITING' });
 
-                        window.location.reload();
-                    }
-                }
-            });
-        });
-    }
+						window.location.reload();
+					}
+				}
+			});
+		});
+	}
 </script>
 
 <div class="fixed top-1 z-[1000] w-full center-content *:h-8">
-    {#if launchCountDown}
-        <img src="/ui/launch_time/distance.webp" alt=""/>
-        {#each launchCountDown.min.toString() as digit}
-            <img class="py-2" src="/ui/launch_time/numbers/{digit}.webp" alt=""/>
-        {/each}
-        <img src="/ui/launch_time/minute.webp" alt=""/>
-        {#each launchCountDown.sec.toString() as digit}
-            <img class="py-2" src="/ui/launch_time/numbers/{digit}.webp" alt=""/>
-        {/each}
-        <img src="/ui/launch_time/second.webp" alt=""/>
-    {/if}
+	{#if launchCountDown}
+		<img src="/ui/launch_time/distance.webp" alt="" />
+		{#each launchCountDown.min.toString() as digit}
+			<img class="py-2" src="/ui/launch_time/numbers/{digit}.webp" alt="" />
+		{/each}
+		<img src="/ui/launch_time/minute.webp" alt="" />
+		{#each launchCountDown.sec.toString() as digit}
+			<img class="py-2" src="/ui/launch_time/numbers/{digit}.webp" alt="" />
+		{/each}
+		<img src="/ui/launch_time/second.webp" alt="" />
+	{/if}
 </div>
 
 <div class="fixed bottom-3 z-[1000] w-full center-content">
-    <img src="/ui/texts/2enter.webp" class="h-10" alt=""/>
+	<img src="/ui/texts/2enter.webp" class="h-10" alt="" />
 </div>
 
 <div
-        class="bg-cover bg-center bg-no-repeat full-screen center-content"
-        style:background-image="url({sysState.bg})"
+	class="bg-cover bg-center bg-no-repeat full-screen center-content"
+	style:background-image="url({sysState.bg})"
 >
-    {#key sysState.pageNum}
-        <div in:fade class="center-content flex-col" class:mix-blend-multiply={sysState.pageNum !== 5}>
-            <Page/>
-        </div>
-    {/key}
+	{#key sysState.pageNum}
+		<div in:fade class="flex-col center-content" class:mix-blend-multiply={sysState.pageNum !== 5}>
+			<Page />
+		</div>
+	{/key}
 </div>
 
 <dialog bind:this={sysState.dialog} class="modal modal-middle">
-    <div class="modal-box">
-        <h1>Error</h1>
-        <p>{sysState.errorMessage}</p>
-        <div class="modal-action">
-            <form method="dialog">
-                <button class="btn btn-secondary" onclick={sysState.closeError}> Close</button>
-            </form>
-        </div>
-    </div>
+	<div class="modal-box">
+		<h1>Error</h1>
+		<p>{sysState.errorMessage}</p>
+		<div class="modal-action">
+			<form method="dialog">
+				<button class="btn btn-secondary" onclick={sysState.closeError}> Close</button>
+			</form>
+		</div>
+	</div>
 </dialog>
 
 {#if sysState.processing || navigating.to}
-    <div transition:fade class="z-[100000] bg-black/10 backdrop-blur-sm full-screen center-content">
-        <i class="fa-solid fa-loader fa-duotone animate-spin text-8xl"></i>
-    </div>
+	<div transition:fade class="z-[100000] bg-black/10 backdrop-blur-sm full-screen center-content">
+		<i class="fa-solid fa-loader fa-duotone animate-spin text-8xl"></i>
+	</div>
 {/if}
 
 {#if dev}
-    <button
-            class="btn btn-secondary fixed left-0 top-0 z-[3000]"
-            onclick={() => window.location.reload()}>reload
-    </button
-    >
+	<button
+		class="btn btn-secondary fixed left-0 top-0 z-[3000]"
+		onclick={() => window.location.reload()}
+		>reload
+	</button>
 {/if}
