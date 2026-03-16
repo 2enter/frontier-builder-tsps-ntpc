@@ -24,7 +24,7 @@
 		}
 
 
-		setInterval(() => {
+		const interval = setInterval(() => {
 			detectSWUpdate();
 		}, 20000);
 
