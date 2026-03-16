@@ -1,7 +1,7 @@
 {
 	"name": "Frontier Builder TSPC NTPC",
 	"short_name": "FTR_BDR_TSPC_NTPC",
-	"start_url": "/app",
+	"start_url": "/app/",
 	"display": "fullscreen",
 	"prefer_related_applications": false,
 	"background_color": "#17191c",

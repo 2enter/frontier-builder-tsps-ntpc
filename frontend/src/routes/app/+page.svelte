@@ -4,7 +4,7 @@
 	import { navigating } from '$app/state';
 	import { dev } from '$app/environment';
 	import { setSysState, setInputState } from '@/states';
-	import { getLaunchCountDown } from '@/time';
+	// import { getLaunchCountDown } from '@/time';
 	import { Pages } from './pages';
 
 	const sysState = setSysState();
