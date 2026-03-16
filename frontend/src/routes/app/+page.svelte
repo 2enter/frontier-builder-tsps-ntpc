@@ -16,10 +16,6 @@
 		inputState.goToConfig();
 	}
 
-	let launchCountDown = $state({
-		min: 0,
-		sec: 0
-	});
 
 	onMount(async () => {
 		if (dev) {
@@ -27,9 +23,6 @@
 			eruda.init();
 		}
 
-		const interval = setInterval(() => {
-			launchCountDown = getLaunchCountDown();
-		}, 1234);
 
 		setInterval(() => {
 			detectSWUpdate();
@@ -61,19 +54,6 @@
 	}
 </script>
 
-<div class="fixed top-1 z-[1000] w-full center-content *:h-8">
-	{#if launchCountDown}
-		<img src="/ui/launch_time/distance.webp" alt="" />
-		{#each launchCountDown.min.toString() as digit}
-			<img class="py-2" src="/ui/launch_time/numbers/{digit}.webp" alt="" />
-		{/each}
-		<img src="/ui/launch_time/minute.webp" alt="" />
-		{#each launchCountDown.sec.toString() as digit}
-			<img class="py-2" src="/ui/launch_time/numbers/{digit}.webp" alt="" />
-		{/each}
-		<img src="/ui/launch_time/second.webp" alt="" />
-	{/if}
-</div>
 
 <div class="fixed bottom-3 z-[1000] w-full center-content">
 	<img src="/ui/texts/2enter.webp" class="h-10" alt="" />
