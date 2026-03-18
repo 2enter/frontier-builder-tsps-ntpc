@@ -48,7 +48,7 @@ class InputState {
     };
 
     goToConfig = () => {
-        window.location.href = '/app/config';
+        window.location.href = '/config';
     };
 }
 
