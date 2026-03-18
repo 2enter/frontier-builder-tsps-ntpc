@@ -10,7 +10,7 @@
         "dotenv": "^16.4.7",
       },
       "devDependencies": {
-        "@2enter/web-kit": "^0.5.0",
+        "@2enter/web-kit": "^0.5.16",
         "@fontsource/dotgothic16": "^5.1.1",
         "@fontsource/fira-code": "^5.1.1",
         "@sveltejs/adapter-static": "^3.0.8",
@@ -44,7 +44,7 @@
     },
   },
   "packages": {
-    "@2enter/web-kit": ["@2enter/web-kit@0.5.0", "", { "dependencies": { "@cloudflare/speedtest": "^1.4.1" }, "peerDependencies": { "svelte": "^5.0.0" } }, "sha512-b1Srcm2SUpCBK4dVvUHtnXkKfJEpm/Ip2dsReF3HF3i5wK8oce8tRglvUrPOZSZ5xgwg4sB8/GJaSzTuvMi3xw=="],
+    "@2enter/web-kit": ["@2enter/web-kit@0.5.16", "", { "dependencies": { "@cloudflare/speedtest": "^1.4.1" }, "peerDependencies": { "svelte": "^5.0.0" } }, "sha512-B1aHVo38RadwdUpNpTExSgghiIQN+XuxyV3drOzdRc5NhAntaZVnD0xUbLSef+ScjxMvxv1viYiRc8z/bgXKCA=="],
 
     "@alloc/quick-lru": ["@alloc/quick-lru@5.2.0", "", {}, "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw=="],
 
