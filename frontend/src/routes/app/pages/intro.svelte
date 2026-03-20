@@ -12,7 +12,7 @@
 ></ImgBtn>
 
 <div
-        class="fixed bottom-0 left-0 size-5"
+        class="fixed bottom-0 left-0 size-32"
         aria-label="Double click to configure"
         role="button"
         tabindex="0"
