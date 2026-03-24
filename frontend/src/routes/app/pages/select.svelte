@@ -1,25 +1,26 @@
 <script lang="ts">
-    import {CargoKind} from '@/types/model';
+	import { CargoKind } from '@/types/model';
 
-    import {getSysState, getInputState} from '@/states';
-    import {ImgBtn} from '@2enter/web-kit/components';
+	import { getSysState, getInputState } from '@/states';
+	import { ImgBtn } from '@2enter/web-kit/components';
 
-    const [sysState, inputState] = [getSysState(), getInputState()];
+	const [sysState, inputState] = [getSysState(), getInputState()];
 
-    const cargoKind = $derived(inputState.cargoKind);
-
-
-    function choose() {
-        sysState.navigate();
-    }
+	function choose(kind: CargoKind) {
+		inputState.cargoKind = kind;
+		sysState.navigate();
+	}
 </script>
 
-<div class="center-content flex-wrap gap-3 px-14">
-    <!--    <img src="/ui/texts/select_cargo.webp" alt="" onclick={choose}/>-->
-    <!--    {#each CARGO_TYPES as type}-->
-    <ImgBtn src="/cargoes/{cargoKind}_select.webp" class="w-2/5" onclick={ choose}></ImgBtn>
-    <img src="/cargoes/{cargoKind}_description.webp" alt="" />
-
-
-    <!--{/each}-->
+<div class="flex-wrap gap-3 px-14 center-content">
+	<!--    <img src="/ui/texts/select_cargo.webp" alt="" onclick={choose}/>-->
+	<div class="flex flex-row flex-wrap w-[85vw] items-content justify-between gap-4">
+		{#each Object.values(CargoKind) as kind}
+			<div class="flex flex-col center-content gap-2">
+				<ImgBtn src="/cargoes/{kind}_select.webp" class="w-[30vw]" onclick={() => choose(kind)}
+				></ImgBtn>
+				<img src="/cargoes/{kind}_description.webp" class="h-24 max-w-[40vw]" alt="" />
+			</div>
+		{/each}
+	</div>
 </div>
