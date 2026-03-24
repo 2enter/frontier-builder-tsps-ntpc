@@ -16,12 +16,12 @@ class InputState {
     readonly submittable = $derived(this.cargoKind && this.paintTime);
     readonly requestMetadata = $derived({kind: this.cargoKind, paintTime: this.paintTime});
 
-    constructor() {
-        this.cargoKind = this.loadCargoKind();
-    }
+    // constructor() {
+    //     this.cargoKind = this.loadCargoKind();
+    // }
 
     reset = () => {
-        this.cargoKind = this.loadCargoKind();
+        // this.cargoKind = this.loadCargoKind();
         this.paintTime = 0;
         this.result = null;
         this.resultImgUrl = null;

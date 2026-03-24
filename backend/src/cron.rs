@@ -72,7 +72,7 @@ pub async fn init(app_state: AppState) -> Result<(), JobSchedulerError> {
         }
     })?;
 
-    let fetch_remote_news = Job::new_async(get_period("fetch_remote_news").unwrap(), {
+    let _fetch_remote_news = Job::new_async(get_period("fetch_remote_news").unwrap(), {
         let app_state = app_state.clone();
 
         move |_, _| {
@@ -121,7 +121,7 @@ pub async fn init(app_state: AppState) -> Result<(), JobSchedulerError> {
     sched.add(send_weather).await?;
     sched.add(launch_rocket).await?;
     sched.add(ship_cargoes).await?;
-    sched.add(fetch_remote_news).await?;
+    // sched.add(fetch_remote_news).await?;
     sched.add(backup_database).await?;
 
     // start scheduler

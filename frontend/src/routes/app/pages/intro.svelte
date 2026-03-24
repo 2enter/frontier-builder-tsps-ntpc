@@ -11,10 +11,10 @@
 <ImgBtn src="/ui/buttons/start.webp" class="fixed bottom-[30vh] w-1/2" onclick={sysState.navigate}
 ></ImgBtn>
 
-<div
-        class="fixed bottom-0 left-0 size-32"
-        aria-label="Double click to configure"
-        role="button"
-        tabindex="0"
-        ondblclick={inputState.goToConfig}
-></div>
+<!--<div-->
+<!--        class="fixed bottom-0 left-0 size-32"-->
+<!--        aria-label="Double click to configure"-->
+<!--        role="button"-->
+<!--        tabindex="0"-->
+<!--        ondblclick={inputState.goToConfig}-->
+<!--&gt;</div>-->

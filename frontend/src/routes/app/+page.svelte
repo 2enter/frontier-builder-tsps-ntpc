@@ -4,25 +4,18 @@
 	import { navigating } from '$app/state';
 	import { dev } from '$app/environment';
 	import { setSysState, setInputState } from '@/states';
-	// import { getLaunchCountDown } from '@/time';
 	import { Pages } from './pages';
 
 	const sysState = setSysState();
-	const inputState = setInputState();
+	setInputState();
 
 	const Page = $derived(Pages[sysState.pageNum]);
-
-	if (!inputState.cargoKind) {
-		inputState.goToConfig();
-	}
-
 
 	onMount(async () => {
 		if (dev) {
 			const eruda = (await import('eruda')).default;
 			eruda.init();
 		}
-
 
 		const interval = setInterval(() => {
 			detectSWUpdate();
@@ -53,7 +46,6 @@
 		});
 	}
 </script>
-
 
 <div class="fixed bottom-3 z-[1000] w-full center-content">
 	<img src="/ui/texts/2enter.webp" class="h-10" alt="" />
@@ -92,6 +84,7 @@
 	<button
 		class="btn btn-secondary fixed left-0 top-0 z-[3000]"
 		onclick={() => window.location.reload()}
-		>reload
+	>
+		reload
 	</button>
 {/if}

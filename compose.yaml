@@ -15,7 +15,6 @@ services:
     network_mode: host
     depends_on:
       - db
-      - chromedriver
 
   db:
     image: postgres:18
@@ -29,13 +28,6 @@ services:
       - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db_data:/var/lib/postgresql
 
-  chromedriver:
-    image: spryker/chromedriver
-    container_name: "${APP_NAME}-chromedriver"
-    restart: always
-    init: true
-    ports:
-      - "${CHROMEDRIVER_PORT}:4444"
 
 volumes:
   db_data:
