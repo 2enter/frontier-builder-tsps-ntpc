@@ -46,7 +46,7 @@ pub async fn send_cargo(
         WSMsg::cargo(
             cargo_kind,
             id,
-            &format!("https://{host}:{port}/api/storage/texture/{id}.jpg"),
+            &format!("https://tsps-ntpc.2enter.art/api/storage/texture/{id}.jpg"),
         ),
         &app_state.ws_sender,
     );
