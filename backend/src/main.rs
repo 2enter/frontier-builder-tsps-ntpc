@@ -17,7 +17,7 @@ use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    tls::init();
+    // tls::init();
     tracing_subscriber::fmt()
         // .with_max_level(tracing::Level::DEBUG)
         .with_env_filter(
