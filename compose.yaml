@@ -1,33 +1,17 @@
 services:
   backend:
     container_name: "${APP_NAME}-backend"
-    restart: always
-    build:
-      context: .
-    volumes:
-      - ./backend/db/storage:${APP_ROOT}/backend/db/storage
-      - ./backend/db/backups:${APP_ROOT}/backend/db/backups
-      - ./backend/cert:${APP_ROOT}/backend/cert
-    env_file:
-      - .env
-    ports:
-      - "${BACKEND_PORT}"
-    network_mode: host
-    depends_on:
-      - db
-
-  db:
-    image: postgres:18
-    container_name: "${APP_NAME}-db"
+    image: "ghcr.io/2enter/${APP_NAME}-backend:latest"
     restart: unless-stopped
+    volumes:
+      - ./backend/db/storage:/app/backend/db/storage
     env_file:
       - .env
     ports:
-      - "${POSTGRES_PORT}:5432"
-    volumes:
-      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-      - db_data:/var/lib/postgresql
+      - "${BACKEND_PORT}:3000"
+    networks: [default, pg_net]
+    user: "0:0"
 
-
-volumes:
-  db_data:
+networks:
+  pg_net:
+    external: true
